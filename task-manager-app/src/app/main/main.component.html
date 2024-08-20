@@ -1,0 +1,10 @@
+@if (taskService.$tasks | async; as tasks) {
+    @if (tasks.length > 0) {
+      @for (item of tasks; track $index) {
+        <div>
+          <p>{{item.name}}</p>
+          <button (click)="taskService.deleteTaskAsync(item.id)">Delete</button>
+        </div>
+      }
+    } @else { No task this moment... }
+}

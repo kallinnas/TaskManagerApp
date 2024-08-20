@@ -1,0 +1,11 @@
+nav a:hover {
+    background-color: #34404d;
+    color: white;
+    cursor: pointer;
+}
+
+nav a.active-link {
+    background-color: #34404d;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,25 @@
+<form (ngSubmit)="onFormSubmit()" [formGroup]="taskForm">
+    <div>
+      <label>Name</label>
+      <input formControlName="name">
+    </div>
+    <div>
+      <label>Description</label>
+      <input formControlName="description">
+    </div>
+    <div>
+      <label>Name</label>
+      <input type="date" formControlName="dueDate">
+    </div>
+    <div>
+      <label>Status</label>
+      <select formControlName="status">
+          <option [value]="TaskStatus.Default">Select...</option>
+          <option [value]="TaskStatus.Active">Active</option>
+          <option [value]="TaskStatus.Completed">Completed</option>
+      </select>
+    </div>
+  
+    <button type="submit">Add</button>
+    
+  </form>

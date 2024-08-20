@@ -29,5 +29,20 @@ namespace TaskManagerAPI.Controllers
             context.SaveChanges();
             return Ok(newTask);
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var task = context.Tasks.Find(id);
+
+            if (task != null)
+            {
+                context.Remove(task);
+                context.SaveChanges();
+            }
+
+            return Ok(true);
+        }
     }
 }
