@@ -1,10 +1,38 @@
-@if (taskService.$tasks | async; as tasks) {
-    @if (tasks.length > 0) {
-      @for (item of tasks; track $index) {
-        <div>
-          <p>{{item.name}}</p>
-          <button (click)="taskService.deleteTaskAsync(item.id)">Delete</button>
-        </div>
-      }
-    } @else { No task this moment... }
-}
+<div>
+  <input placeholder="Search by task name" (keyup)="applyFilter($event)" />
+  <select (change)="applyStatusFilter($event)">
+    <option value="-1">All</option>
+    <option value="0">Active</option>
+    <option value="1">Completed</option>
+  </select>
+</div>
+
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element">{{element.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let element">{{element.description}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="dueDate">
+    <th mat-header-cell *matHeaderCellDef>Due Date</th>
+    <td mat-cell *matCellDef="let element">{{taskService.formatDate(element.dueDate)}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let element">{{taskService.TaskStatus[element.status]}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

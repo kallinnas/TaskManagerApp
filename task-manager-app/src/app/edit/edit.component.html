@@ -1,25 +1,32 @@
+<div>
+  <input type="number" [formControl]="id" >
+  <button (click)="getById()">Find</button>
+  <button *ngIf="isTaskForUpdate" (click)="removeUpdateTaskId()">Remove</button>
+</div>
+
 <form (ngSubmit)="onFormSubmit()" [formGroup]="taskForm">
-    <div>
-      <label>Name</label>
-      <input formControlName="name">
-    </div>
-    <div>
-      <label>Description</label>
-      <input formControlName="description">
-    </div>
-    <div>
-      <label>Name</label>
-      <input type="date" formControlName="dueDate">
-    </div>
-    <div>
-      <label>Status</label>
-      <select formControlName="status">
-          <option [value]="TaskStatus.Default">Select...</option>
-          <option [value]="TaskStatus.Active">Active</option>
-          <option [value]="TaskStatus.Completed">Completed</option>
-      </select>
-    </div>
+  <div>
+    <label>Name</label>
+    <input formControlName="name">
+  </div>
+  <div>
+    <label>Description</label>
+    <input formControlName="description">
+  </div>
+  <div>
+    <label>Name</label>
+    <input type="date" formControlName="dueDate">
+  </div>
+  <div>
+    <label>Status</label>
+    <select formControlName="status">
+      <option [value]="">Select...</option>
+      <option [value]="taskService.TaskStatus.Active">Active</option>
+      <option [value]="taskService.TaskStatus.Completed">Completed</option>
+    </select>
+  </div>
   
-    <button type="submit">Add</button>
-    
-  </form>
+  <button *ngIf="!isTaskForUpdate" type="submit">Add</button>
+  <button *ngIf="isTaskForUpdate" (click)="updateTask()">Update</button>
+  
+</form>
